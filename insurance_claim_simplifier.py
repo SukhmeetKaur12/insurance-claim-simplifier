@@ -22,7 +22,7 @@ def extract_text_from_pdfs(folder_path):
 
 raw_docs = extract_text_from_pdfs(pdf_folder)
 print(f"Extracted {len(raw_docs)} documents")
-def chunk_text(text, chunk_size=500, overlap=100):
+def chunk_text(text, chunk_size=500, overlap=50):
     words = text.split()
     chunks = []
     for i in range(0, len(words), chunk_size - overlap):
@@ -149,10 +149,11 @@ df.head(5)
 import os
 
 # Create the directory if it doesn't exist
-os.makedirs("/mnt/data", exist_ok=True)
+os.makedirs("data", exist_ok=True)
 
 # Save updated data to new CSV
-df.to_csv("/mnt/data/insurance_data_with_approval.csv", index=False)
+
+df.to_csv("data/insurance_data_with_approval.csv.csv", index=False)
 df['age'].fillna(df['age'].median(), inplace=True)
 df['region'].fillna(df['region'].mode()[0], inplace=True)
 
