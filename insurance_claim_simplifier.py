@@ -1,6 +1,6 @@
 import os
 
-pdf_folder = r"C:\Users\kaurs\OneDrive\Scans\Desktop\insurance claim  simplifier predictor\insurance rag data"
+pdf_folder = r"docs/"
 
 os.makedirs(pdf_folder, exist_ok=True)
 import fitz  # PyMuPDF
@@ -218,7 +218,7 @@ import os
 from langchain.document_loaders import PyPDFLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 
-folder_path = r"C:\Users\kaurs\OneDrive\Scans\Desktop\insurance claim  simplifier predictor\insurance rag data"
+folder_path = r"docs/"
 documents = []
 
 # Load all PDF files
