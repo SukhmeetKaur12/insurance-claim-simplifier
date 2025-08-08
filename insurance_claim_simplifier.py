@@ -7,9 +7,7 @@ Original file is located at
     https://colab.research.google.com/drive/1bgDCSNZZYkTgSjwnwrJ9WTbPks1infGI
 """
 
-pip install pymupdf
-pip install sentence-transformers
-pip install faiss-cpu
+
 
 import os
 
@@ -371,9 +369,7 @@ print("Accuracy:", accuracy_score(y_test, y_pred))
 print("\nConfusion Matrix:\n", confusion_matrix(y_test, y_pred))
 print("\nClassification Report:\n", classification_report(y_test, y_pred))
 
-pip install langchain faiss-cpu sentence-transformers transformers accelerate bitsandbytes -q
-
-pip install langchain pypdf
+ 
 
 import os
 from langchain.document_loaders import PyPDFLoader
@@ -416,7 +412,7 @@ print("✅ Vector store created and saved.")
 
 retriever = db.as_retriever(search_type="similarity", search_kwargs={"k": 5})
 
-pip install transformers accelerate
+
 
 from transformers import pipeline
 import torch
@@ -580,9 +576,7 @@ def load_ml_model():
     except Exception as e:
         st.error(f"Error loading ML model: {e}")
         return None
-pip install streamlit
 
-pip install transformers sentencepiece langchain-community streamlit
 
 
 # ------------------ Streamlit UI ------------------
