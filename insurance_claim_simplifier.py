@@ -394,7 +394,7 @@ chunks = splitter.split_documents(documents)
 
 print(f"Split {len(documents)} PDFs into {len(chunks)} chunks.")
 
-pip install -U langchain-community
+
 
 from langchain.vectorstores import FAISS
 from langchain.embeddings import HuggingFaceEmbeddings
