@@ -1,6 +1,6 @@
 import os
 
-pdf_folder = r"docs/"
+pdf_folder = r"docs/docs/"
 
 os.makedirs(pdf_folder, exist_ok=True)
 import fitz  # PyMuPDF
@@ -218,7 +218,7 @@ import os
 from langchain.document_loaders import PyPDFLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 
-folder_path = r"docs/"
+folder_path = r"docs/docs/"
 documents = []
 
 # Load all PDF files
