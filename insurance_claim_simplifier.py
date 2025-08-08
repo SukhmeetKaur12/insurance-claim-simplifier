@@ -7,9 +7,9 @@ Original file is located at
     https://colab.research.google.com/drive/1bgDCSNZZYkTgSjwnwrJ9WTbPks1infGI
 """
 
-!pip install pymupdf
-!pip install sentence-transformers
-!pip install faiss-cpu
+pip install pymupdf
+pip install sentence-transformers
+pip install faiss-cpu
 
 import os
 
@@ -371,9 +371,9 @@ print("Accuracy:", accuracy_score(y_test, y_pred))
 print("\nConfusion Matrix:\n", confusion_matrix(y_test, y_pred))
 print("\nClassification Report:\n", classification_report(y_test, y_pred))
 
-!pip install langchain faiss-cpu sentence-transformers transformers accelerate bitsandbytes -q
+pip install langchain faiss-cpu sentence-transformers transformers accelerate bitsandbytes -q
 
-!pip install langchain pypdf
+pip install langchain pypdf
 
 import os
 from langchain.document_loaders import PyPDFLoader
@@ -398,7 +398,7 @@ chunks = splitter.split_documents(documents)
 
 print(f"Split {len(documents)} PDFs into {len(chunks)} chunks.")
 
-!pip install -U langchain-community
+pip install -U langchain-community
 
 from langchain.vectorstores import FAISS
 from langchain.embeddings import HuggingFaceEmbeddings
@@ -416,7 +416,7 @@ print("✅ Vector store created and saved.")
 
 retriever = db.as_retriever(search_type="similarity", search_kwargs={"k": 5})
 
-!pip install transformers accelerate
+pip install transformers accelerate
 
 from transformers import pipeline
 import torch
@@ -580,6 +580,9 @@ def load_ml_model():
     except Exception as e:
         st.error(f"Error loading ML model: {e}")
         return None
+pip install streamlit
+
+pip install transformers sentencepiece langchain-community streamlit
 
 
 # ------------------ Streamlit UI ------------------
@@ -702,25 +705,7 @@ else:
     else:
         st.warning("ML model could not be loaded. Prediction is not available.")
 
-!pip install streamlit
 
-!pip install transformers sentencepiece langchain-community streamlit
 
-!pip freeze > requirements.txt
 
-from google.colab import files
-files.download('requirements.txt')
-
-import streamlit as st
-
-st.title("Insurance Claim Simplifier")
-user_input = st.text_area("Enter claim details:")
-if st.button("Simplify"):
-    st.write("Simplified Claim:", user_input.lower())
-
-!jupyter nbconvert --to script "insurance claim simplifier.ipynb"
-
-!pwd
-
-!ls /content/
 
