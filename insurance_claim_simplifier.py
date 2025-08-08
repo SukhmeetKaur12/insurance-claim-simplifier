@@ -119,7 +119,7 @@ print("Answer:", answer)
 import pandas as pd
 
 # Load dataset
-df = pd.read_csv(r"C:\Users\kaurs\OneDrive\Scans\Desktop\insurance claim  simplifier predictor\insurance predictor dataset\insurance_data.csv")
+df = pd.read_csv(r"data/insurance_data.csv")
 
 # Preview
 print(df.head())
