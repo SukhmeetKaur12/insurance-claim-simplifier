@@ -131,8 +131,8 @@ else:
         # 'age', 'bmi', 'bloodpressure', 'children', 'gender_male',
         # 'diabetic_Yes', 'smoker_Yes', 'region_northwest', 'region_southeast', 'region_southwest'
         # We need to collect the raw values and then one-hot encode them
-        age = st.number_input("Age", min_value=18, max_value=100.0, value=30.0)
-        bmi = st.number_input("BMI", min_value=10.0, max_value=60.0, value=25.0)
+        age = st.number_input("Age", min_value=18, max_value=100, value=30)
+        bmi = st.number_input("BMI", min_value=10, max_value=60, value=25)
         bloodpressure = st.number_input("Blood Pressure", min_value=50, max_value=200, value=90)
         children = st.number_input("Number of Children", min_value=0, max_value=10, value=0)
         gender = st.selectbox("Gender", ["male", "female"])
