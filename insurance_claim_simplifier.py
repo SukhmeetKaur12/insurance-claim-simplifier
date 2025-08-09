@@ -190,14 +190,16 @@ from sklearn.ensemble import RandomForestClassifier
 clf = RandomForestClassifier(random_state=42)
 clf.fit(X_train, y_train)'''
 
+import joblib
 import pandas as pd
-from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
+from sklearn.model_selection import train_test_split
 from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
 
-# Assuming df is loaded already
+# --- Your existing code to prepare data and train model ---
+
 # Drop irrelevant or leaking columns
-X = df.drop(columns=['approved', 'PatientID', 'index', 'claim'])  # Also dropped 'index' as irrelevant
+X = df.drop(columns=['approved', 'PatientID', 'index', 'claim'])  # Also dropped 'index' as it's irrelevant
 y = df['approved']
 
 # One-hot encode categorical variables
@@ -206,16 +208,78 @@ X = pd.get_dummies(X, columns=['gender', 'diabetic', 'smoker', 'region'], drop_f
 # Split data
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
 
-# Train and evaluate model
+# Train model
 model = RandomForestClassifier(random_state=42)
 model.fit(X_train, y_train)
-y_pred = model.predict(X_test)
 
-# Evaluate predictions
+# Evaluate
+y_pred = model.predict(X_test)
 print("Accuracy:", accuracy_score(y_test, y_pred))
 print("\nConfusion Matrix:\n", confusion_matrix(y_test, y_pred))
 print("\nClassification Report:\n", classification_report(y_test, y_pred))
-import os
+
+# --- New code starts here ---
+
+# Save training columns to align input data during prediction
+training_columns = X_train.columns.tolist()
+
+# Prediction function
+def predict_claim_approval(input_dict):
+    """
+    input_dict: dict with keys - age, bmi, bloodpressure, children, gender, diabetic, smoker, region
+    Example:
+      {
+        "age": 45,
+        "bmi": 28,
+        "bloodpressure": 120,
+        "children": 2,
+        "gender": "male",
+        "diabetic": "Yes",
+        "smoker": "No",
+        "region": "northwest"
+      }
+    Returns: prediction (int) - 1 for approved, 0 for rejected
+    """
+
+    # Convert input dict to DataFrame
+    input_df = pd.DataFrame([input_dict])
+
+    # One-hot encode categorical columns exactly as in training
+    categorical_cols = ['gender', 'diabetic', 'smoker', 'region']
+    input_encoded = pd.get_dummies(input_df, columns=categorical_cols, drop_first=True)
+
+    # Add missing columns that were in training but not in input, set to 0
+    for col in training_columns:
+        if col not in input_encoded.columns:
+            input_encoded[col] = 0
+
+    # Reorder columns to match training data
+    input_encoded = input_encoded[training_columns]
+
+    # Predict using the trained model
+    prediction = model.predict(input_encoded)[0]
+
+    return prediction
+
+# Save the model and training columns to disk
+joblib.dump(model, 'claim_model.pkl')
+joblib.dump(training_columns, 'training_columns.pkl')
+
+# --- Example usage ---
+if __name__ == "__main__":
+    example_input = {
+        "age": 45,
+        "bmi": 28,
+        "bloodpressure": 120,
+        "children": 2,
+        "gender": "male",
+        "diabetic": "Yes",
+        "smoker": "No",
+        "region": "northwest"
+    }
+
+    pred = predict_claim_approval(example_input)
+    print("Prediction (1=Approved, 0=Rejected):", pred)
 from langchain.document_loaders import PyPDFLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 
